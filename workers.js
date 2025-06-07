@@ -662,94 +662,104 @@ const HTML_CONTENT = `
             color: #e3e3e3;
         }
         
+        /* 修改卡片容器为flex布局 */
+
+
+        /* 修改卡片容器布局 */
         .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px; /* 减小间距从16px到12px */
             padding: 10px;
         }
-
+        
+        /* 优化卡片样式 */
         .card {
             background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
             border-radius: 8px;
-            padding: 10px;
-            flex: 1 1 200px; /* 可以伸缩，基础宽度200px */
-            min-width: 0; /* 防止内容溢出 */
-            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+            padding: 8px 12px; /* 调整内边距 */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 减弱阴影 */
             cursor: pointer;
-            border-left: 5px solid #43b883;
+            border-left: 4px solid #43b883; /* 减小边框宽度 */
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             user-select: none;
-            display: flex;
-            flex-direction: column;
             position: relative;
-        }
-
-        .card-top {
+            
             display: flex;
+            flex-direction: row;
             align-items: center;
             gap: 8px;
-        }
-
-        .card-divider {
-            height: 1px;
-            background: #c3c3c3;
-            margin: 6px 0;
+            width: fit-content;
+            min-width: 180px; /* 稍微减小最小宽度 */
+            max-width: 100%;
+            height: 40px; /* 固定高度，确保统一 */
         }
         
-        .card-bottom {
-            min-height: 28px;
-            line-height: 28px;
-            overflow: hidden;
-        }
-
-        body.dark-theme .card {
-            background-image: linear-gradient(to right, #1e2128 0%, #1e2128 100%);
-            border-left-color: #5d7fb9;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-        
+        /* 优化图标样式 */
         .card-icon {
-            width: 36px;
-            height: 36px;
+            width: 24px; /* 减小图标尺寸 */
+            height: 24px;
             background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-            border-radius: 30%;
+            border-radius: 6px; /* 减小圆角 */
             object-fit: contain;
+            flex-shrink: 0; /* 防止图标被压缩 */
         }
         
+        /* 优化分隔线 */
+        .card-divider {
+            width: 1px;
+            height: 20px; /* 减小高度 */
+            background: rgba(195, 195, 195, 0.5); /* 降低分隔线透明度 */
+            margin: 0 6px; /* 减小间距 */
+        }
+        
+        /* 优化标题样式 */
         .card-title {
-            font-size: 16px;
-            font-weight: bold;
+            font-size: 14px; /* 减小字体 */
+            font-weight: 500; /* 调整字重 */
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width:100%
+            margin-right: 6px;
+            color: #333;
         }
         
+        /* 优化描述文字样式 */
         .card-tip {
             font-size: 12px;
             color: #666;
-            display: -webkit-box;          /* 关键属性：启用多行文本截断 */
-            -webkit-line-clamp: 2;         /* 最多显示两行 */
-            -webkit-box-orient: vertical;  /* 垂直方向排列 */
-            overflow: hidden;             /* 超出部分隐藏 */
-            text-overflow: ellipsis;      /* 超出部分显示省略号 */
-            line-height: 14px;             
-            max-height: 28px;            
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+            opacity: 0.8; /* 略微降低不重要文字的透明度 */
         }
-
+        
+        /* 调整卡片悬停效果 */
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* 暗色模式优化 */
+        body.dark-theme .card {
+            background-image: linear-gradient(to right, rgba(30, 33, 40, 0.8) 0%, rgba(30, 33, 40, 0.9) 100%);
+            border-left-color: #5d7fb9;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        
         body.dark-theme .card-title {
             color: #e3e3e3;
         }
-
+        
         body.dark-theme .card-tip {
-            color: #a0a0a0;
+            color: rgba(160, 160, 160, 0.9);
+        }
+        
+        body.dark-theme .card-divider {
+            background: rgba(195, 195, 195, 0.2);
         }
 
-        body.dark-theme .card-icon {
-            background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
-            background-blend-mode: multiply,multiply;
-        }
 
         #custom-tooltip {
             position: absolute;
@@ -1412,7 +1422,7 @@ const HTML_CONTENT = `
                 <div class="search-bar">
                     <select id="search-engine-select">
 						<option value="site">本站</option>
-                        <option value="baidu">百度</option>
+                        
                         <option value="bing">必应</option>
                         <option value="google">谷歌</option>
                     </select>
